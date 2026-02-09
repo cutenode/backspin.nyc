@@ -1,0 +1,6 @@
+@include('../partials/head')
+  @!component('../components/hero')
+  @each(path in await absolutePaths())
+    @!component('../components/post', { path })
+  @end
+@include('../partials/foot')

@@ -1,0 +1,7 @@
+<article class="article layered-paper">
+  @let(doc = await $markdown.render({
+    file: path,
+  }))
+  <h2 class="header-font">{{ doc.frontmatter.title}}</h2>
+  <section class="contents body-font">{{{ doc.content }}}</div>
+</article>
