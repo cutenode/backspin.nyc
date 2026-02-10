@@ -18,21 +18,17 @@ server.register(fastifyView, {
         edge: edge
     }
 });
-async function loadMarkdownAbsolutePaths() {
+async function getAbsolutePathsOfEditions() {
     const absolutePaths = [];
-    const paths = await readdir(resolve(import.meta.dirname, 'posts'));
+    const paths = await readdir(resolve(import.meta.dirname, 'editions'));
     for (const path of paths) {
         if (path.endsWith('.md')) {
-            const resultingFile = resolve(import.meta.dirname, 'posts', path);
+            const resultingFile = resolve(import.meta.dirname, 'editions', path);
             absolutePaths.push(resultingFile);
         }
     }
     return absolutePaths;
 }
-// set up postgres connection
-// server.register(postgres, {
-//   connectionString: process.env.DATABASE_CONNECTION_STRING
-// })
 // server routes
 server.get('/', async (request, reply) => {
     const data = {
@@ -43,9 +39,26 @@ server.get('/', async (request, reply) => {
         user: {
             name: 'test'
         },
-        absolutePaths: await loadMarkdownAbsolutePaths
+        absolutePaths: await getAbsolutePathsOfEditions
     };
     reply.view('index.edge', data);
+    return reply;
+});
+server.get('/edition/:slug', async (request, reply) => {
+    const { slug } = request.params;
+    const editionPath = resolve(import.meta.dirname, 'editions', `${slug}.md`);
+    console.log(editionPath);
+    const data = {
+        metadata: {
+            title: 'backspin.nyc',
+            description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
+        },
+        user: {
+            name: 'test'
+        },
+        path: editionPath
+    };
+    reply.view('edition.edge', data);
     return reply;
 });
 server.get('/health', async (request, reply) => {
