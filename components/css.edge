@@ -1,0 +1,332 @@
+@pushOnceTo('css')
+  <!-- external CSS links -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+	<!-- CSS reset -->
+	<style type="text/css">
+	/* 1. Use a more-intuitive box-sizing model */
+	*, *::before, *::after {
+		box-sizing: border-box;
+	}
+
+	/* 2. Remove default margin */
+	*:not(dialog) {
+		margin: 0;
+	}
+
+	/* 3. Enable keyword animations */
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			interpolate-size: allow-keywords;
+		}
+	}
+
+	body {
+		/* 4. Add accessible line-height */
+		line-height: 1.5;
+		/* 5. Improve text rendering */
+		-webkit-font-smoothing: antialiased;
+	}
+
+	/* 6. Improve media defaults */
+	img, picture, video, canvas, svg {
+		display: block;
+		max-width: 100%;
+	}
+
+	/* 7. Inherit fonts for form controls */
+	input, button, textarea, select {
+		font: inherit;
+	}
+
+	/* 8. Avoid text overflows */
+	p, h1, h2, h3, h4, h5, h6 {
+		overflow-wrap: break-word;
+	}
+
+	/* 9. Improve line wrapping */
+	p {
+		text-wrap: pretty;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		text-wrap: balance;
+	}
+
+	/*
+		10. Create a root stacking context
+	*/
+	#root, #__next {
+		isolation: isolate;
+	}
+	</style>
+
+
+	<!-- our custom CSS -->
+	<style type="text/css">
+		body {
+			background-color: #f0f0f0;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		section#hero {
+			margin-top: 15rem;
+			margin-bottom: 15rem;
+			flex-direction: row;
+			width: 100%;
+		}
+
+		section#hero h1 {
+			text-decoration: underline;
+			text-align: center;	
+			font-size: 10rem;
+		}
+
+		section#hero h2 {
+			text-align: center;
+			font-weight: 600;
+		}
+
+		section#hero section {
+			margin-top: 5rem;
+		}
+
+		.signup {
+			max-width: fit-content;
+			margin: 2rem auto;
+		}
+
+		/* button and input styles */
+
+	.purdy {
+		--color: #010101;
+		--hover: #010203;
+	}
+
+	button, .signup input[type=email], .signup input[type=submit] {
+		color: var(--color);
+		transition: 0.1s;
+		background: none;
+		border: 2px solid;
+		font: inherit;
+		line-height: 1;
+		margin: 0.5em;
+		padding: 1em 2em;
+	}
+	button:hover, button:focus, .signup input[type=email]:hover, .signup input[type=email]:focus, .signup input[type=submit]:hover, .signup input[type=submit]:focus {
+		border-color: var(--hover);
+		color: #fff;
+	}
+	.purdy {
+		box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);
+	}
+	.purdy:hover:not(.ticket), .purdy:focus:not(.ticket) {
+		box-shadow: 0 0 0 0 var(--hover), inset 3em 3.5em 0 0 var(--hover);
+	}
+		
+		/* font styles */
+
+		.header-font {
+		  font-family: "Domine", serif;
+			font-weight: 700;
+			color: #000;
+			text-decoration-color: #000;
+		}
+
+		h1.header-font a {
+			color: #000;
+			text-decoration-color: #000;
+		}
+
+		.content-font {
+		  font-family: "Spline Sans Mono", monospace;
+			font-optical-sizing: auto;
+			font-weight: 400;
+			font-size: 1rem;
+		}
+
+		.italic {
+			font-style: italic;
+		}
+
+		.content-but-smaller {
+			font-size: 0.9rem;
+		}
+
+		.mono {
+			font-family: "Spline Sans Mono", monospace;
+			font-optical-sizing: auto;
+			font-weight: 500;
+			font-style: normal;
+		}
+
+		.sheet {
+			background-color: #FFFEFF;
+			max-width: 100%;
+			padding: 2rem;
+			overflow: hidden;
+			margin-bottom: 16px;
+			box-shadow: 0px 1px 2px 1px #D3D2D3;
+			border-radius: 2px;
+		}
+
+		section#edition {
+			margin-top: 3rem;
+		}
+
+		#site-header {
+			display:flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			flex-basis: 100%;
+			margin-bottom: 1.5rem;
+		}
+
+		#site-header * {
+			flex: 1 1 auto;
+		}
+
+		#site-header h1 {
+			font-size: 1rem;
+		}
+		#site-header p {
+			font-size: 0.8rem;
+			text-align: right;
+		}
+
+		section#edition #content {
+			margin-bottom: 5rem;
+		}
+
+		section #content h2 {
+			font-size: 2rem;
+		}
+
+		#content h2 a {
+			color: unset;
+			text-decoration: underline;
+		}
+		
+		.signup .prompt {
+			font-size: 0.9rem;
+			text-align: center;
+			margin-bottom: 2rem;
+		}
+
+	</style>
+
+	<style>
+  /* ticket style */
+
+	section#stops {
+			margin-top: 3rem;
+	}
+	
+	section#stops section.sheet {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	section#stops section.sheet h2 {
+		font-size: 2rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.ticket {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 100%;
+		justify-content: space-around;
+		align-items: center;
+		align-content: space-around;
+		gap: 1rem 1.25rem;
+		padding: 1rem;
+		margin-bottom: 3%;
+	}
+
+	.ticket .descriptor {
+		display:flex;
+		flex-basis: 100%;
+		font-size: 0.8rem;
+		line-height:0.5rem;
+		padding-left: 0.5rem;
+	}
+
+	.ticket .event {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 100%;
+		font-size: 1.3rem;
+	}
+
+	.ticket .event .name {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 70%;
+	}
+
+	.ticket .event .purchase {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 30%;
+		justify-content: flex-end;
+	}
+	.ticket .event .purchase button {
+		height: 3rem;
+		width: 10rem;
+		font-size: 0.8rem;
+	}
+
+	.ticket .details {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 100%;
+	}
+	.ticket .details .artists {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 50%;
+	}
+	.ticket .details .spacetime {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		flex-basis: 50%;
+	}
+	
+	.ticket .artists ul {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 100%;
+		list-style: none;
+		padding: 0;
+	}
+	.ticket .artists ul li {
+		display: flex;
+		flex-basis: 100%;
+		line-height: 0.8rem;
+	}
+
+	.ticket .details .spacetime .location {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 50%;
+		row-gap: 1rem;
+	}
+
+	.ticket .details .spacetime .cta {
+		flex-basis: 50%;
+	}
+	</style>
+@end

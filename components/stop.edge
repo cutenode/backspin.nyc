@@ -1,0 +1,33 @@
+<section class="ticket background-{{doc.frontmatter.venue}} purdy">
+  <header class="event header-font">
+    <section class="name">
+      <p class="descriptor">*event</p>
+      <h3>{{doc.frontmatter.event}}</p>
+    </section>
+    <aside class="purchase">
+      <button class="purdy content-font" href="{{doc.frontmatter.link}}">{{doc.frontmatter.cta}}</button>
+    </aside>
+  </header>
+  <section class="details">
+    <section class="artists">
+      <p class="descriptor header-font">*lineup</p>
+      <ul>
+      @each(artist in doc.frontmatter.artists)
+          <li class="artist content-font content-but-smaller">{{artist}}</p>
+      @end
+      </ul>
+    </section>
+    <section class="spacetime content-font">
+      <section class="location">
+        <section class="date">
+          <p class="descriptor header-font">*date and time</p>
+          <p class="iso content-font content-but-smaller">{{doc.frontmatter.date}} at {{doc.frontmatter.starttime}}</p>
+        </section>
+        <section>
+          <p class="descriptor header-font">*venue</p>
+          <p class="content-font content-but-smaller">{{doc.frontmatter.venue}}</p>
+        </section>
+      </section>
+    </section>
+   </section>
+</section>

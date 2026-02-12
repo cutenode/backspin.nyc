@@ -1,0 +1,42 @@
+{
+	"silo": {
+		"displayName": "SILO",
+		"address": "90 Scott Ave, East Williamsburg, Brooklyn",
+		"maps": {
+			"google": "https://maps.app.goo.gl/P2gGDeHi72714BEBA"
+		},
+		"links": {
+			"ra": "https://ra.co/clubs/207254"
+		}
+	},
+	"bossa": {
+		"displayName": "Bossa Nova Civic Club",
+		"address": "90 Scott Ave, East Williamsburg, Brooklyn",
+		"maps": {
+			"google": "https://maps.app.goo.gl/hTtP9MHyeJ8n6JfM7"
+		},
+		"links": {
+			"ra": "https://ra.co/clubs/71292"
+		}
+	},
+	"jade": {
+		"displayName": "JADE",
+		"address": "4 Stuyvesant Ave, Brooklyn, NY 11221",
+		"maps": {
+			"google": "https://maps.app.goo.gl/sSTeMS4ZNMqkZAGH6"
+		},
+		"links": {
+			"ra": "https://ra.co/clubs/192697"
+		}
+	},
+	"mood-ring": {
+		"displayName": "Mood Ring",
+		"address": "1260 Myrtle Ave, Brooklyn, NY 11221",
+		"maps": {
+			"google": "https://maps.app.goo.gl/Ee1kS6RQMp26mxDu7"
+		},
+		"links": {
+			"ra": "https://ra.co/clubs/141852"
+		}
+	}
+}

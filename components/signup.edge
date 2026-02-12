@@ -1,0 +1,9 @@
+<section class="signup">
+	@if(prompt === true)
+		<p class="prompt content-font">want to recieve backspin in your inbox?</p>
+	@end
+	<form class="newsletter">
+		<input name="newsletter" type="email" placeholder="{{ emailPlaceholder || 'cool@person.com' }}" class="purdy" required>
+		<input name="newsletter" type="submit" value="{{ submitText || 'sign up' }}" accesskey="s" class="purdy">
+	</form>
+</section>

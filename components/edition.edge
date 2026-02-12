@@ -1,0 +1,17 @@
+@let(doc = await $markdown.render({
+    file: path,
+  }))
+<article class="sheet">
+  @if(heading === true)
+    @!component('../components/header', { doc })
+  @end
+  <section id="content" class="content-font">
+    <h2 class="header-font"><a href="./edition/{{doc.frontmatter.slug}}">{{ doc.frontmatter.title}}</a></h2>
+    {{{ doc.content }}}
+  </section>
+  {{-- we check if the heading is true because that cascades
+  into this being a individual edition view rather than the homepage --}}
+  @if(heading === true)
+     @!component('../components/signup', { prompt: true })
+  @end
+</article>
