@@ -4,10 +4,7 @@ artists: ["Concrete Husband", "C2C.", "CMD+JAZMINE", "Bella Mode", "ceviché", "
 date: 2026-03-26
 starttime: "9:00 PM"
 endtime: "3:00 AM"
-location: Bushwick
-address: "90 Scott Ave, East Williamsburg, Brooklyn"
-venue: "SILO"
-venue-slug: silo
+venue: silo
 tickets: https://ra.co/events/2368784
 cta: "Get Tickets"
 ---

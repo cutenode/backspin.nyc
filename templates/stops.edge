@@ -1,27 +1,25 @@
+{{-- forgive the Date() crimes I've committed in this file --}}
+
 {{-- loop over our absolute paths and render them to each of the above stacks where appropriate --}}
 @each(path in await absolutePaths)
     @let(doc = await $markdown.render({
         file: path,
     }))
-    @if(new Date(doc.frontmatter.date).toISOString() > new Date().toISOString())
-        @if(new Date(new Date().setUTCDate(new Date().getUTCDate() + 7)).toISOString() >= new Date(doc.frontmatter.date).toISOString() && new Date(doc.frontmatter.date).toISOString() < new Date().toISOString())
-            {{-- we have entries this week! --}}
-            @pushOnceTo('this-week')
-                <h2 class="header-font">*This Week</h2>                               
-            @end
-            @pushTo('this-week')
-                @!component('../components/stop', { doc })
-            @end
-        @else
-            @pushOnceTo('upcoming')
-                <h2 class="header-font">*Upcoming</h2>
-            @end
-            @pushTo('upcoming')
-                @!component('../components/stop', { doc })
-            @end
+    @if(dateCompare.isDateWithinOneWeek(doc.frontmatter.date))
+        @pushOnceTo('this-week')
+            <h2 class="header-font">*This Week</h2>                               
         @end
-    @end
-    @if(new Date(doc.frontmatter.date).toISOString() < new Date().toISOString())
+        @pushTo('this-week')
+            @!component('../components/stop', { doc })
+        @end
+    @elseif(dateCompare.isDateAfterOneWeek(doc.frontmatter.date))
+        @pushOnceTo('upcoming')
+            <h2 class="header-font">*Upcoming</h2>
+        @end
+        @pushTo('upcoming')
+            @!component('../components/stop', { doc })
+        @end
+    @elseif(dateCompare.isDateBefore(doc.frontmatter.date, new Date().toISOString()))
         @pushOnceTo('past')
             <h2 class="header-font">*Past</h2>
         @end
@@ -35,6 +33,7 @@
     <section id="stops">
         <section class="sheet">
             @!component('../components/header')
+            @stack('debug')
             @stack('this-week')
             @stack('upcoming')
             @stack('past')
