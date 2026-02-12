@@ -97,24 +97,33 @@
 			margin: 2rem auto;
 		}
 
-		.signup input[type=email], .signup input[type=submit] {
-			margin: 0 auto;
-			padding-top: 0;
-			padding-bottom: 5px;
-			padding-left: 20px;
-			padding-right: 20px;
-			height: 2.5rem;
-			border-radius: 1.5rem;
-			border-color: transparent;
-		}
-		.signup input[type=email] {
-			border-color: #f8f8f8;
-    border-style: solid;
-		}
+		/* button and input styles */
 
-		.signup input[type=submit] {
-			background-color: gainsboro;
-		}
+	.purdy {
+		--color: #010101;
+		--hover: #010203;
+	}
+
+	button, .signup input[type=email], .signup input[type=submit] {
+		color: var(--color);
+		transition: 0.1s;
+		background: none;
+		border: 2px solid;
+		font: inherit;
+		line-height: 1;
+		margin: 0.5em;
+		padding: 1em 2em;
+	}
+	button:hover, button:focus, .signup input[type=email]:hover, .signup input[type=email]:focus, .signup input[type=submit]:hover, .signup input[type=submit]:focus {
+		border-color: var(--hover);
+		color: #fff;
+	}
+	.purdy {
+		box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);
+	}
+	.purdy:hover:not(.ticket), .purdy:focus:not(.ticket) {
+		box-shadow: 0 0 0 0 var(--hover), inset 3em 3.5em 0 0 var(--hover);
+	}
 		
 		/* font styles */
 
@@ -141,6 +150,10 @@
 			font-style: italic;
 		}
 
+		.content-but-smaller {
+			font-size: 0.9rem;
+		}
+
 		.mono {
 			font-family: "Spline Sans Mono", monospace;
 			font-optical-sizing: auto;
@@ -148,7 +161,7 @@
 			font-style: normal;
 		}
 
-		.layered-paper {
+		.sheet {
 			background-color: #FFFEFF;
 			max-width: 100%;
 			padding: 2rem;
@@ -162,20 +175,23 @@
 			margin-top: 3rem;
 		}
 
-		section#edition header {
-			display: flex;
+		#site-header {
+			display:flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			flex-basis: 100%;
 			margin-bottom: 1.5rem;
 		}
 
-		section#edition header * {
+		#site-header * {
 			flex: 1 1 auto;
 		}
 
-		section#edition header h1 {
+		#site-header h1 {
 			font-size: 1rem;
 		}
-		section#edition header p {
-			font-size: 1rem;
+		#site-header p {
+			font-size: 0.8rem;
 			text-align: right;
 		}
 
@@ -183,15 +199,134 @@
 			margin-bottom: 5rem;
 		}
 
-		section#edition #content h2 {
+		section #content h2 {
 			font-size: 2rem;
 		}
 
+		#content h2 a {
+			color: unset;
+			text-decoration: underline;
+		}
+		
 		.signup .prompt {
 			font-size: 0.9rem;
 			text-align: center;
 			margin-bottom: 2rem;
 		}
 
+	</style>
+
+	<style>
+  /* ticket style */
+
+	section#stops {
+			margin-top: 3rem;
+	}
+	
+	section#stops section.sheet {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	section#stops section.sheet h2 {
+		font-size: 2rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.ticket {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 100%;
+		justify-content: space-around;
+		align-items: center;
+		align-content: space-around;
+		gap: 1rem 1.25rem;
+		padding: 1rem;
+		margin-bottom: 3%;
+	}
+
+	.ticket .descriptor {
+		display:flex;
+		flex-basis: 100%;
+		font-size: 0.8rem;
+		line-height:0.5rem;
+		padding-left: 0.5rem;
+	}
+
+	.ticket .event {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 100%;
+		font-size: 1.3rem;
+	}
+
+	.ticket .event .name {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 70%;
+	}
+
+	.ticket .event .purchase {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 30%;
+		justify-content: flex-end;
+	}
+	.ticket .event .purchase button {
+		height: 3rem;
+		width: 10rem;
+		font-size: 0.8rem;
+	}
+
+	.ticket .details {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 100%;
+	}
+	.ticket .details .artists {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 50%;
+	}
+	.ticket .details .spacetime {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		flex-basis: 50%;
+	}
+	
+	.ticket .artists ul {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 100%;
+		list-style: none;
+		padding: 0;
+	}
+	.ticket .artists ul li {
+		display: flex;
+		flex-basis: 100%;
+		line-height: 0.8rem;
+	}
+
+	.ticket .details .spacetime .location {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-basis: 50%;
+		row-gap: 1rem;
+	}
+
+	.ticket .details .spacetime .cta {
+		flex-basis: 50%;
+	}
 	</style>
 @end

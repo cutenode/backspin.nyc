@@ -18,12 +18,12 @@ server.register(fastifyView, {
         edge: edge
     }
 });
-async function getAbsolutePathsOfEditions() {
+async function getAbsolutePathsOfMarkdown(directory) {
     const absolutePaths = [];
-    const paths = await readdir(resolve(import.meta.dirname, 'editions'));
+    const paths = await readdir(resolve(import.meta.dirname, directory));
     for (const path of paths) {
         if (path.endsWith('.md')) {
-            const resultingFile = resolve(import.meta.dirname, 'editions', path);
+            const resultingFile = resolve(import.meta.dirname, directory, path);
             absolutePaths.push(resultingFile);
         }
     }
@@ -36,10 +36,7 @@ server.get('/', async (request, reply) => {
             title: 'backspin.nyc',
             description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
         },
-        user: {
-            name: 'test'
-        },
-        absolutePaths: await getAbsolutePathsOfEditions
+        absolutePaths: await getAbsolutePathsOfMarkdown('editions')
     };
     reply.view('index.edge', data);
     return reply;
@@ -53,12 +50,20 @@ server.get('/edition/:slug', async (request, reply) => {
             title: 'backspin.nyc',
             description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
         },
-        user: {
-            name: 'test'
-        },
         path: editionPath
     };
     reply.view('edition.edge', data);
+    return reply;
+});
+server.get('/stops/', async (request, reply) => {
+    const data = {
+        metadata: {
+            title: 'backspin.nyc',
+            description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
+        },
+        absolutePaths: await getAbsolutePathsOfMarkdown('stops')
+    };
+    reply.view('stops.edge', data);
     return reply;
 });
 server.get('/health', async (request, reply) => {
