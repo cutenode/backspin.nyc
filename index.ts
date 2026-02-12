@@ -15,6 +15,14 @@ const edge = new Edge()
 edge.mount(join(import.meta.dirname, 'templates'))
 edge.use(edgeMarkdown, {})
 
+// read our venues file and make it available globally in our edge templates
+const venuesFile = await readFile(resolve(import.meta.dirname, 'venues.json'), 'utf-8')
+const venues = JSON.parse(venuesFile)
+edge.global('venues', venues)
+
+// provide date utilities so we don't have to do insane new Date logic in our templates
+import { dateCompare } from './helpers/dateCompare.js'
+edge.global('dateCompare', dateCompare)
 
 server.register(fastifyView, {
 	engine: {
@@ -52,7 +60,7 @@ server.get('/', async (request: any, reply: any) => {
 server.get('/edition/:slug', async (request: any, reply: any) => {
 	const { slug } = request.params
 	const editionPath = resolve(import.meta.dirname, 'editions', `${slug}.md`)
-	console.log(editionPath)
+
 
 	const data = {
 		metadata: {

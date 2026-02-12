@@ -4,14 +4,19 @@ import { Edge } from 'edge.js';
 import { edgeMarkdown } from 'edge-markdown';
 import { readdir, readFile } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
-// import postgres from '@fastify/postgres'
-// import pg from 'pg'
 // fastify configuration 
 const server = fastify({ logger: true });
 // instantiate edge and configure our views directory
 const edge = new Edge();
 edge.mount(join(import.meta.dirname, 'templates'));
 edge.use(edgeMarkdown, {});
+// read our venues file and make it available globally in our edge templates
+const venuesFile = await readFile(resolve(import.meta.dirname, 'venues.json'), 'utf-8');
+const venues = JSON.parse(venuesFile);
+edge.global('venues', venues);
+// provide date utilities so we don't have to do insane new Date logic in our templates
+import { dateCompare } from './helpers/dateCompare.js';
+edge.global('dateCompare', dateCompare);
 server.register(fastifyView, {
     engine: {
         // @ts-expect-error
@@ -44,7 +49,6 @@ server.get('/', async (request, reply) => {
 server.get('/edition/:slug', async (request, reply) => {
     const { slug } = request.params;
     const editionPath = resolve(import.meta.dirname, 'editions', `${slug}.md`);
-    console.log(editionPath);
     const data = {
         metadata: {
             title: 'backspin.nyc',
