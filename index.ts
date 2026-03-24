@@ -31,7 +31,7 @@ server.register(fastifyView, {
 	}
 })
 
-async function getAbsolutePathsOfMarkdown (directory: string) {
+async function getAbsolutePathsOfMarkdown (directory: string, options: { reverse?: boolean } = {}): Promise<Array<string>> {
 	const absolutePaths: Array<string> = []
 	const paths = await readdir(resolve(import.meta.dirname, directory))
 	for (const path of paths) {
@@ -40,6 +40,11 @@ async function getAbsolutePathsOfMarkdown (directory: string) {
 			absolutePaths.push(resultingFile)
 		}
 	}
+
+	if (options.reverse) {
+		absolutePaths.reverse()
+	}
+
 	return absolutePaths
 }
 
@@ -50,7 +55,7 @@ server.get('/', async (request: any, reply: any) => {
 			title: 'backspin.nyc',
 			description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
 		},
-		absolutePaths: await getAbsolutePathsOfMarkdown('editions')
+		editions: await getAbsolutePathsOfMarkdown('editions')
 	}
 
 	reply.view('index.edge', data)
@@ -61,13 +66,12 @@ server.get('/edition/:slug', async (request: any, reply: any) => {
 	const { slug } = request.params
 	const editionPath = resolve(import.meta.dirname, 'editions', `${slug}.md`)
 
-
 	const data = {
 		metadata: {
 			title: 'backspin.nyc',
 			description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
 		},
-		path: editionPath
+		edition: editionPath
 	}
 
 	reply.view('edition.edge', data)
@@ -80,7 +84,7 @@ server.get('/stops/', async (request: any, reply: any) => {
 			title: 'backspin.nyc',
 			description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
 		},
-		absolutePaths: await getAbsolutePathsOfMarkdown('stops')
+		stops: await getAbsolutePathsOfMarkdown('stops')
 	}
 
 	reply.view('stops.edge', data)

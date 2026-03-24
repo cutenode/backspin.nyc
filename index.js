@@ -23,7 +23,7 @@ server.register(fastifyView, {
         edge: edge
     }
 });
-async function getAbsolutePathsOfMarkdown(directory) {
+async function getAbsolutePathsOfMarkdown(directory, options = {}) {
     const absolutePaths = [];
     const paths = await readdir(resolve(import.meta.dirname, directory));
     for (const path of paths) {
@@ -31,6 +31,9 @@ async function getAbsolutePathsOfMarkdown(directory) {
             const resultingFile = resolve(import.meta.dirname, directory, path);
             absolutePaths.push(resultingFile);
         }
+    }
+    if (options.reverse) {
+        absolutePaths.reverse();
     }
     return absolutePaths;
 }
@@ -41,7 +44,7 @@ server.get('/', async (request, reply) => {
             title: 'backspin.nyc',
             description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
         },
-        absolutePaths: await getAbsolutePathsOfMarkdown('editions')
+        editions: await getAbsolutePathsOfMarkdown('editions')
     };
     reply.view('index.edge', data);
     return reply;
@@ -54,7 +57,7 @@ server.get('/edition/:slug', async (request, reply) => {
             title: 'backspin.nyc',
             description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
         },
-        path: editionPath
+        edition: editionPath
     };
     reply.view('edition.edge', data);
     return reply;
@@ -65,7 +68,7 @@ server.get('/stops/', async (request, reply) => {
             title: 'backspin.nyc',
             description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
         },
-        absolutePaths: await getAbsolutePathsOfMarkdown('stops')
+        stops: await getAbsolutePathsOfMarkdown('stops')
     };
     reply.view('stops.edge', data);
     return reply;

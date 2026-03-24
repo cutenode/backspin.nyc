@@ -1,0 +1,21 @@
+@include('../partials/head')
+    <section id="edition">
+        @!component('../components/edition', { edition, heading: true })
+    </section>
+    <section id="stops">
+    @stack('this-week')
+    @each(stop in await stops)
+        @let(doc = await $markdown.render({
+            file: stop,
+        }))
+        @if(dateCompare.withinNextWeek(doc.frontmatter.date))
+            @pushOnceTo('this-week')
+                <h2 class="header-font">*This Week</h2>                               
+            @end
+            @pushTo('this-week')
+                @!component('../components/stop', { doc })
+            @end
+        @end
+    @end
+    </section>
+@include('../partials/foot')

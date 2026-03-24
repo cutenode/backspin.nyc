@@ -1,31 +1,16 @@
 {{-- forgive the Date() crimes I've committed in this file --}}
 
 {{-- loop over our absolute paths and render them to each of the above stacks where appropriate --}}
-@each(path in await absolutePaths)
+@each(stop in await stops)
     @let(doc = await $markdown.render({
-        file: path,
+        file: stop,
     }))
-    @if(dateCompare.isDateWithinOneWeek(doc.frontmatter.date))
-        @pushOnceTo('this-week')
-            <h2 class="header-font">*This Week</h2>                               
-        @end
-        @pushTo('this-week')
-            @!component('../components/stop', { doc })
-        @end
-    @elseif(dateCompare.isDateAfterOneWeek(doc.frontmatter.date))
-        @pushOnceTo('upcoming')
-            <h2 class="header-font">*Upcoming</h2>
-        @end
-        @pushTo('upcoming')
-            @!component('../components/stop', { doc })
-        @end
+    @if(dateCompare.withinNextWeek(doc.frontmatter.date))
+        @!component('../components/stops/thisWeek', { doc })
+    @elseif(dateCompare.beyondNextWeek(doc.frontmatter.date))
+        @!component('../components/stops/upcoming', { doc })
     @elseif(dateCompare.isDateBefore(doc.frontmatter.date, new Date().toISOString()))
-        @pushOnceTo('past')
-            <h2 class="header-font">*Past</h2>
-        @end
-        @pushTo('past')
-            @!component('../components/stop', { doc })
-        @end
+        @!component('../components/stops/past', { doc })
     @end
 @end
 
