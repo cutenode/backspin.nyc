@@ -4,11 +4,18 @@ import { Edge } from 'edge.js'
 import { edgeMarkdown } from 'edge-markdown'
 import { readdir, readFile } from 'node:fs/promises'
 import { resolve, join } from 'node:path'
+import { fastifyFormbody } from '@fastify/formbody'
+
+const port = Number(process.env.PORT);
+const hostname = String(process.env.HOST);
 
 // fastify configuration 
 const server = fastify(
 	{ logger: true }
 )
+
+//set up our form parsing
+server.register(fastifyFormbody)
 
 // set up parent of the `src` directory for us to use in different imports
 const parentOfSrcDirectory = resolve(import.meta.dirname, '..')
@@ -101,13 +108,15 @@ server.get('/health', async (request, reply) => {
 	return { status: 'ok' }
 })
 
+server.post('/signup', async (request: any, reply: any) => {
+	const { email } = request.body;
+	reply.send({ email });
+})
+
 // run the server
 const start = async () => {
-	const port = Number(process.env.PORT);
-	const host = String(process.env.HOST);
-
 	try {
-		await server.listen({ port, host });
+		await server.listen({ port, host: hostname });
 	} catch (err) {
 		server.log.error(err)
 		process.exit(1)
