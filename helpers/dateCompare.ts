@@ -2,8 +2,8 @@ import { DateTime } from 'luxon';
 
 export const dateCompare = {
 	isDateBefore,
-	isDateWithinOneWeek,
-	isDateAfterOneWeek,
+	withinNextWeek,
+	beyondNextWeek,
 };
 
 function isDateBefore(dateA: string, dateB: string): boolean {
@@ -12,7 +12,7 @@ function isDateBefore(dateA: string, dateB: string): boolean {
 	return a < b;
 }
 
-function isDateWithinOneWeek(date: string): boolean {
+function withinNextWeek(date: string): boolean {
 	const d = DateTime.fromISO(date);
 	const diffInDays = d.diffNow('days').days + 1;
 
@@ -23,7 +23,7 @@ function isDateWithinOneWeek(date: string): boolean {
 	return false;
 }
 
-function isDateAfterOneWeek(date: string): boolean {
+function beyondNextWeek(date: string): boolean {
 	const d = DateTime.fromISO(date);
 	const diffInDays = d.diffNow('days').days;
 
