@@ -1,0 +1,7 @@
+@pushOnceTo('past')
+	@let(subtitle = 'events/past')
+	@!component('../components/header', { subtitle })
+@end
+@pushTo('past')
+		@!component('../components/event', { doc })
+@end
