@@ -1,8 +1,11 @@
 <header id="site-header">
 	<h1 class="header-font"><a href="/">backspin</a></h1>
 	@if(doc)
-	@if(doc.frontmatter.index)
-		<p class="content-font">^edition {{ doc.frontmatter.index }}</p>
+		@if(doc.frontmatter.index)
+			<p class="content-font">edition {{ doc.frontmatter.index }}</p>
+		@end
 	@end
+	@if(subtitle)
+		<p class="content-font">{{ subtitle }}</p>
 	@end
 </header>

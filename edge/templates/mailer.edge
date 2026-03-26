@@ -2,18 +2,18 @@
     <section id="edition">
         @!component('../components/edition', { edition, heading: true })
     </section>
-    <section id="stops">
+    <section id="events">
     @stack('this-week')
-    @each(stop in await stops)
+    @each(event in await events)
         @let(doc = await $markdown.render({
-            file: stop,
+            file: event,
         }))
         @if(dateCompare.withinNextWeek(doc.frontmatter.date))
             @pushOnceTo('this-week')
                 <h2 class="header-font">*This Week</h2>                               
             @end
             @pushTo('this-week')
-                @!component('../components/stop', { doc })
+                @!component('../components/event', { doc })
             @end
         @end
     @end

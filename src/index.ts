@@ -84,16 +84,16 @@ server.get('/edition/:slug', async (request: any, reply: any) => {
 	return reply
 });
 
-server.get('/stops/', async (request: any, reply: any) => {
+server.get('/events/', async (request: any, reply: any) => {
 	const data = {
 		metadata: {
 			title: 'backspin.nyc',
 			description: 'backspin is a non-exhaustive newsletter about nightlife and electronic dance music in New York City, authored by Heathcliff'
 		},
-		stops: await getAbsolutePathsOfMarkdown('stops')
+		events: await getAbsolutePathsOfMarkdown('events')
 	}
 
-	reply.view('stops.edge', data)
+	reply.view('events.edge', data)
 	return reply
 });
 
@@ -103,8 +103,8 @@ server.get('/health', async (request, reply) => {
 
 // run the server
 const start = async () => {
-	const port = Number(process.env.SERVER_PORT);
-	const host = String(process.env.SERVER_HOSTNAME);
+	const port = Number(process.env.PORT);
+	const host = String(process.env.HOST);
 
 	try {
 		await server.listen({ port, host });
@@ -112,8 +112,6 @@ const start = async () => {
 		server.log.error(err)
 		process.exit(1)
 	}
-
-	server.log.info(`Server listening on http://localhost:${port}`)
 }
 
 start();

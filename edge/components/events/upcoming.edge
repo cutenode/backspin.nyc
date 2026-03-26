@@ -1,0 +1,7 @@
+@pushOnceTo('upcoming')
+		@let(subtitle = 'events/upcoming')
+	@!component('../components/header', { subtitle })
+@end
+@pushTo('upcoming')
+		@!component('../components/event', { doc })
+@end

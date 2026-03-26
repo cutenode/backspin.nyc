@@ -6,7 +6,7 @@
     @!component('../components/header', { doc })
   @end
   <section id="content" class="content-font">
-    <h2 class="header-font"><a href="./{{doc.frontmatter.slug}}">{{ doc.frontmatter.title}}</a></h2>
+    <h2 class="header-font"><a href="./edition/{{doc.frontmatter.slug}}">{{ doc.frontmatter.title}}</a></h2>
     {{{ doc.content }}}
   </section>
   {{-- we check if the heading is true because that cascades

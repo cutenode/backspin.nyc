@@ -1,0 +1,7 @@
+@pushOnceTo('this-week')
+		@let(subtitle = 'events/this week')
+	@!component('../components/header', { subtitle })                            
+@end
+@pushTo('this-week')
+		@!component('../components/event', { doc })
+@end

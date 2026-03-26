@@ -1,0 +1,52 @@
+{{-- forgive the Date() crimes I've committed in this file --}}
+@let(exists = { 
+    nextWeek: false,
+    upcoming: false, 
+    past: false 
+})
+
+{{-- loop over our absolute paths and render them to each of the above stacks where appropriate --}}
+@each(event in await events)
+    @let(doc = await $markdown.render({
+        file: event,
+    }))
+    @if(dateCompare.withinNextWeek(doc.frontmatter.date))
+        @assign(exists.nextWeek = true)
+        @!component('../components/events/thisWeek', { doc })
+    @elseif(dateCompare.beyondNextWeek(doc.frontmatter.date))
+        @assign(exists.upcoming = true)
+        @!component('../components/events/upcoming', { doc })
+    @elseif(dateCompare.isDateBefore(doc.frontmatter.date, new Date().toISOString()))
+        @assign(exists.past = true)
+        @!component('../components/events/past', { doc })
+    @end
+@end
+
+@include('../partials/head')
+    <section id="events">
+        @stack('debug')
+        @if(exists.nextWeek)
+            <section class="sheet">
+        @end
+        @stack('this-week')
+        @if(exists.nextWeek)
+            </section>
+        @end
+        @if(exists.upcoming)
+            <section class="sheet">
+        @end
+        @stack('upcoming')
+        @if(exists.upcoming)
+            </section>
+        @end
+        @if(exists.past)
+            <section class="sheet">
+        @end
+        @stack('past')
+        @if(exists.past)
+            </section>
+        @end
+        @!component('../components/signup', { prompt: true })
+    </section>
+@include('../partials/foot')
+
