@@ -7,7 +7,7 @@
   "scripts": {
     "check": "tsc --noEmit --erasableSyntaxOnly --allowImportingTsExtensions",
     "start": "node --env-file-if-exists=.env ./src/index.ts",
-    "dev": "npm run check && npm run start",
+    "dev": "npm run check && npm run start | pino-pretty",
     "update": "npx npm-check-updates -u"
   },
   "author": "Tierney Cyren <hello@bnb.im>",
