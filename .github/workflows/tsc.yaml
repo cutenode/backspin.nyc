@@ -1,0 +1,24 @@
+name: "Test: Run tsc"
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  tests:
+    runs-on: ubuntu-slim
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: current
+    - name: Run npm install
+      run: npm install
+    - name: Run npm run check
+      run: npm run check
