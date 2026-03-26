@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "start": "node --env-file-if-exists=.env index.js | pino-pretty",
-    "dev": "npm run build && npm run start",
+    "check": "tsc --noEmit --erasableSyntaxOnly --allowImportingTsExtensions",
+    "start": "node --env-file-if-exists=.env ./src/index.ts",
+    "dev": "npm run check && npm run start",
     "update": "npx npm-check-updates -u"
   },
   "author": "Tierney Cyren <hello@bnb.im>",
